@@ -16,19 +16,25 @@ class App extends Component{
     selectedVideo: null
    };
 
-    YTSearch({key: API_KEY, term: "surfboards"}, (videos) =>{
-        this.setState({
-        videos: videos,
-        selectedVideo: videos[0]
-      });
-    });
-
+   this.videoSearch("surfboards");
   }
+
+videoSearch(term){
+  YTSearch({key: API_KEY, term: term}, (videos) =>{
+      this.setState({
+      videos: videos,
+      selectedVideo: videos[0]
+    });
+  });
+}
+
 
   render(){
     return (
+      // when searchbar calls onSearchTermChange it will do so with a term, and that will be sent
+      // into this.videoSearch
       <div>
-        <SearchBar />
+        <SearchBar onSearchTermChange={term => this.videoSearch(term)}/>
         <VideoDetail video={this.state.selectedVideo}/>
         <VideoList
           // passing a function that manipulates another componenent
