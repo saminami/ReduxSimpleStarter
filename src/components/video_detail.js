@@ -4,7 +4,7 @@ import React from "react";
 const VideoDetail = ({video}) => {
 
   if(!video){
-    return <div>....</div>;
+    return <div>Loading....</div>;
   }
 
   const videoId = video.id.videoId;
