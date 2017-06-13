@@ -1,3 +1,4 @@
+import _ from "lodash";
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
 import YTSearch from "youtube-api-search"
@@ -30,11 +31,12 @@ videoSearch(term){
 
 
   render(){
+    // debounce will return a new function that can only be called once every 300ms
+    const videoSearch = _.debounce((term) => {this.videoSearch(term)}, 300);
+
     return (
-      // when searchbar calls onSearchTermChange it will do so with a term, and that will be sent
-      // into this.videoSearch
       <div>
-        <SearchBar onSearchTermChange={term => this.videoSearch(term)}/>
+        <SearchBar onSearchTermChange={videoSearch}/>
         <VideoDetail video={this.state.selectedVideo}/>
         <VideoList
           // passing a function that manipulates another componenent
